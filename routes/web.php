@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\TodoListController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -24,4 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::post('/saveItemRoute', [TodoListController::class, 'saveItem'])->name('saveItem');
+
+Route::post('/markAsDoneRoute/{id}', [TodoListController::class, 'markAsDone'])->name('markAsDone');
+
+Route::get('/', [TodoListController::class, 'index']);
+
+require __DIR__ . '/auth.php';
