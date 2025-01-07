@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ListItem;
+use Inertia\Inertia;
 
 class TodoListController extends Controller
 {
@@ -12,9 +13,11 @@ class TodoListController extends Controller
         $incompleteItems = ListItem::where('is_complete', 0)->get();
         $completeItems = ListItem::where('is_complete', 1)->get();
 
-        return view('welcome', [
+        return Inertia::render('Welcome', [
             'listItems' => $incompleteItems,
-            'completeItems' => $completeItems
+            'completeItems' => $completeItems,
+            'canLogin' => true,
+            'canRegister' => true
         ]);
     }
 
